@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <rcon_whitelist />
+  <acl_enabled>false</acl_enabled>
+  <rcon_enabled>false</rcon_enabled>
+  <log_console>true</log_console>
+  <log_chat>true</log_chat>
+  <rcon_password>rcon</rcon_password>
+</config>
