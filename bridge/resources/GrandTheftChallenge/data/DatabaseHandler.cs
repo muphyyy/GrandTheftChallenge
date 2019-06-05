@@ -60,5 +60,29 @@ namespace GrandTheftChallenge.Data
 
             return account;
         }
+
+        public static async Task<string> GetAccountBanReason(int accountId)
+        {
+            string reason = string.Empty;
+
+            using (MySqlConnection connection = new MySqlConnection(connectionHandle))
+            {
+                await connection.OpenAsync().ConfigureAwait(false);
+
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT `reason` FROM `punishments` WHERE `player` = @player ORDER BY `time` DESC LIMIT 1";
+                command.Parameters.AddWithValue("@player", accountId);
+
+                DbDataReader reader = await command.ExecuteReaderAsync().ConfigureAwait(false);
+
+                if (reader.HasRows)
+                {
+                    await reader.ReadAsync().ConfigureAwait(false);
+                    reason = reader.GetString(reader.GetOrdinal("reason"));
+                }
+            }
+
+            return reason;
+        }
     }
 }

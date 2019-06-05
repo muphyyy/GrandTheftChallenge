@@ -3,7 +3,7 @@
     public static class Constants
     {
         // Account states
-        public readonly static int ACCOUNT_STATE_BANNED = 0;
-        public readonly static int ACCOUNT_STATE_PLAYABLE = 1;
+        public const int ACCOUNT_STATE_BANNED = 0;
+        public const int ACCOUNT_STATE_PLAYABLE = 1;
     }
 }

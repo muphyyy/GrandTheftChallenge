@@ -1,5 +1,6 @@
 ﻿using GrandTheftChallenge.Data;
 using GrandTheftChallenge.Data.Model;
+using GrandTheftChallenge.Utility;
 using GTANetworkAPI;
 
 namespace GrandTheftChallenge.Character
@@ -23,15 +24,29 @@ namespace GrandTheftChallenge.Character
             else
             {
                 // Check the account
-                CheckAccountState(account);
+                CheckAccountState(player, account);
             }
         }
         
         private void InitializeCharacterData() { }
 
-        private void CheckAccountState(AccountModel account)
+        private async void CheckAccountState(Client player, AccountModel account)
         {
+            switch(account.State)
+            {
+                case Constants.ACCOUNT_STATE_BANNED:
+                    // Get the account's ban reason
+                    string reason = await DatabaseHandler.GetAccountBanReason(account.Id);
 
+                    // The account has been banned, we show the message to the player
+                    player.TriggerEvent("ShowPlayer", reason);
+                    break;
+
+                case Constants.ACCOUNT_STATE_PLAYABLE:
+                    // Show the main menu to the player
+                    player.TriggerEvent("ShowMainMenu");
+                    break;
+            }
         }
     }
 }
