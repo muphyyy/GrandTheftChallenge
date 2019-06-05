@@ -1,4 +1,8 @@
-﻿using GTANetworkAPI;
+﻿using GrandTheftChallenge.Data.Model;
+using GTANetworkAPI;
+using MySql.Data.MySqlClient;
+using System.Data.Common;
+using System.Threading.Tasks;
 
 namespace GrandTheftChallenge.Data
 {
@@ -25,6 +29,36 @@ namespace GrandTheftChallenge.Data
         private void InitializeStartupModels()
         {
             // Load the startup data and store into lists
+        }
+
+        public static async Task<AccountModel> GetPlayerAccount(string socialName)
+        {
+            AccountModel account = null;
+
+            using (MySqlConnection connection = new MySqlConnection(connectionHandle))
+            {
+                await connection.OpenAsync().ConfigureAwait(false);
+
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT `id`, `state`, `lastLogged` FROM `accounts` WHERE `socialName` = @socialName LIMIT 1";
+                command.Parameters.AddWithValue("@socialName", socialName);
+
+                DbDataReader reader = await command.ExecuteReaderAsync().ConfigureAwait(false);
+
+                if (reader.HasRows)
+                {
+                    await reader.ReadAsync().ConfigureAwait(false);
+
+                    account = new AccountModel();
+                    {
+                        account.Id = reader.GetInt32(reader.GetOrdinal("id"));
+                        account.State = reader.GetInt32(reader.GetOrdinal("state"));
+                        account.LastLogged = reader.GetString(reader.GetOrdinal("lastLogged"));
+                    }
+                }
+            }
+
+            return account;
         }
     }
 }
