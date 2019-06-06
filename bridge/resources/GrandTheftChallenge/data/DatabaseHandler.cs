@@ -10,7 +10,8 @@ namespace GrandTheftChallenge.Data
     {
         private static string connectionHandle;
 
-        public DatabaseHandler()
+        [ServerEvent(Event.ResourceStart)]
+        public void ResourceStartEvent()
         {
             // Get the database connection settings
             string host = NAPI.Resource.GetSetting<string>(this, "host");

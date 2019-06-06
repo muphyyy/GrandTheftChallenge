@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <resource src="GrandTheftChallenge" />
   <rcon_whitelist />
   <acl_enabled>false</acl_enabled>
   <rcon_enabled>false</rcon_enabled>
