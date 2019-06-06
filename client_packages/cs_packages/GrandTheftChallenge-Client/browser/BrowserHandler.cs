@@ -6,8 +6,6 @@ namespace GrandTheftChallenge_Client.Browser
 {
     public class BrowserHandler : Events.Script
     {
-        private static object[] parameters = null;
-
         public static HtmlWindow CreateBrowser(string path, object[] parameters)
         {
             HtmlWindow browser = new HtmlWindow(path);
