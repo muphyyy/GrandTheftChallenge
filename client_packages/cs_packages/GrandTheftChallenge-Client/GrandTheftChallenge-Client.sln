@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29001.49
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrandTheftChallenge-Client", "GrandTheftChallenge-Client.csproj", "{EE2251ED-8B71-4232-AEFB-970BAE32A34D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EE2251ED-8B71-4232-AEFB-970BAE32A34D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE2251ED-8B71-4232-AEFB-970BAE32A34D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE2251ED-8B71-4232-AEFB-970BAE32A34D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE2251ED-8B71-4232-AEFB-970BAE32A34D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A91C75E3-DCA9-4959-A300-9EBB642B7151}
+	EndGlobalSection
+EndGlobal
