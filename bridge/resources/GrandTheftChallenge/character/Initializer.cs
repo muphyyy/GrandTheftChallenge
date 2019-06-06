@@ -39,7 +39,7 @@ namespace GrandTheftChallenge.Character
                     string reason = await DatabaseHandler.GetAccountBanReason(account.Id);
 
                     // The account has been banned, we show the message to the player
-                    player.TriggerEvent("ShowPlayer", reason);
+                    player.TriggerEvent("ShowPlayerBan", reason);
                     break;
 
                 case Constants.ACCOUNT_STATE_PLAYABLE:
