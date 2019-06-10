@@ -28,19 +28,19 @@ namespace GrandTheftChallenge_Client.Connection
         private void ShowRegisterWindowEvent(object[] args)
         {
             // Create the register browser
-            browser = BrowserHandler.CreateBrowser("package://statics/assets/register.html", null);
+            browser = BrowserHandler.CreateBrowser("package://statics/register.html", null);
         }
 
         private void ShowPlayerBanEvent(object[] args)
         {
             // Create the player ban browser
-            browser = BrowserHandler.CreateBrowser("package://statics/assets/ban.html", null);
+            browser = BrowserHandler.CreateBrowser("package://statics/ban.html", null);
         }
 
         private void ShowMainMenuEvent(object[] args)
         {
             // Create the menu browser
-            browser = BrowserHandler.CreateBrowser("package://statics/assets/menu.html", null);
+            browser = BrowserHandler.CreateBrowser("package://statics/menu.html", null);
         }
 
         private void DestroyConnectionBrowserEvent(object[] args)

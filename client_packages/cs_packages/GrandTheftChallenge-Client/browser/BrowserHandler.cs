@@ -10,27 +10,24 @@ namespace GrandTheftChallenge_Client.Browser
         {
             HtmlWindow browser = new HtmlWindow(path);
 
-            if(parameters != null && parameters.Length > 0)
+            // Bind the browser creation event
+            Events.OnBrowserCreated += (window) =>
             {
-                // Bind the browser creation event
-                Events.OnBrowserDomReady += (window) =>
+                if (window.Id != browser.Id) return;
+
+                // Enable the cursor
+                Cursor.Visible = true;
+
+                if (parameters != null && parameters.Length > 0)
                 {
-                    if (window != browser) return;
+                    // Get the function name
+                    string function = parameters[0].ToString();
+                    object[] arguments = parameters.Skip(1).ToArray();
 
-                    // Enable the cursor
-                    Cursor.Visible = true;
-
-                    if (parameters.Length > 0)
-                    {
-                        // Get the function name
-                        string function = parameters[0].ToString();
-                        object[] arguments = parameters.Skip(1).ToArray();
-
-                        // Call the function passed as parameter
-                        ExecuteBrowserFunction(browser, function, arguments);
-                    }
-                };
-            }
+                    // Call the function passed as parameter
+                    ExecuteBrowserFunction(browser, function, arguments);
+                }
+            };
 
             return browser;
         }

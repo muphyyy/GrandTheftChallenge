@@ -27,7 +27,19 @@ namespace GrandTheftChallenge.Character
                 CheckAccountState(player, account);
             }
         }
-        
+
+        [RemoteEvent("LoginAccount")]
+        public async void LoginAccountEvent(Client player, string username, string password)
+        {
+            NAPI.Console.WriteLine("Login");
+        }
+
+        [RemoteEvent("RegisterAccount")]
+        public async void RegisterAccountEvent(Client player, string username, string email, string password)
+        {
+            NAPI.Console.WriteLine("Registro");
+        }
+
         private void InitializeCharacterData() { }
 
         private async void CheckAccountState(Client player, AccountModel account)
