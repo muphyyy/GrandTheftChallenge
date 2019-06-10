@@ -116,5 +116,21 @@ namespace GrandTheftChallenge.Data
 
             return registeredAccount;
         }
+
+        public static async Task<bool> LoginAccount(string username, string password)
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionHandle))
+            {
+                await connection.OpenAsync().ConfigureAwait(false);
+
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT `id` FROM `accounts` WHERE (`username` = @username OR `email` = @username) AND `password` = SHA2(@password, '256') LIMIT 1";
+                command.Parameters.AddWithValue("@username", username);
+                command.Parameters.AddWithValue("@password", password);
+
+                DbDataReader reader = await command.ExecuteReaderAsync().ConfigureAwait(false);
+                return reader.HasRows;
+            }
+        }
     }
 }

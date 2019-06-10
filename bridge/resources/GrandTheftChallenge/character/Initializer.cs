@@ -31,14 +31,22 @@ namespace GrandTheftChallenge.Character
         [RemoteEvent("LoginAccount")]
         public async void LoginAccountEvent(Client player, string username, string password)
         {
-            NAPI.Console.WriteLine("Login");
+            // Check if the account exists
+            bool accountCorrect = await DatabaseHandler.LoginAccount(username, password);
+
+            if(!accountCorrect)
+            {
+                // The creadentials don't match
+                player.TriggerEvent("WarnLoginFailed");
+                return;
+            }
         }
 
         [RemoteEvent("RegisterAccount")]
         public async void RegisterAccountEvent(Client player, string username, string email, string password)
         {
             // Try to register the account
-            int registeredAccount = await DatabaseHandler.RegisterAccount(username, email, password, player.SocialClubName);
+            int registeredAccount = await DatabaseHandler.RegisterAccount(username, email, password, player.SocialClubName).ConfigureAwait(false);
 
             if(registeredAccount == 0)
             {
