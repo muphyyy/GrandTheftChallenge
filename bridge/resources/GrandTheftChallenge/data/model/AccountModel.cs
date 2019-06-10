@@ -4,6 +4,7 @@
     {
         public int Id { get; set; }
         public string SocialName { get; set; }
+        public string Email { get; set; }
         public int State { get; set; }
         public string LastLogged { get; set; }
     }

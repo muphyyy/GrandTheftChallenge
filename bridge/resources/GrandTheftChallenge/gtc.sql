@@ -21,12 +21,15 @@ USE `gtc`;
 DROP TABLE IF EXISTS `accounts`;
 CREATE TABLE IF NOT EXISTS `accounts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `socialName` varchar(32) NOT NULL,
+  `username` varchar(32) NOT NULL,
+  `email` varchar(64) NOT NULL,
   `password` varchar(64) NOT NULL,
+  `socialName` varchar(32) NOT NULL,
   `state` tinyint(4) NOT NULL DEFAULT '1',
   `lastLogged` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `socialName` (`socialName`)
+  UNIQUE KEY `socialName` (`socialName`,`username`),
+  UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='User accounts';
 
 -- Volcando datos para la tabla gtc.accounts: ~0 rows (aproximadamente)

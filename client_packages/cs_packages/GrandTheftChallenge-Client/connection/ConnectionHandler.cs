@@ -50,6 +50,9 @@ namespace GrandTheftChallenge_Client.Connection
             // Destroy the active CEF window
             BrowserHandler.DestroyBrowser(browser);
             browser = null;
+
+            // Unfreeze the player
+            Player.LocalPlayer.FreezePosition(false);
         }
 
         private void RegisterServerEvent(object[] args)

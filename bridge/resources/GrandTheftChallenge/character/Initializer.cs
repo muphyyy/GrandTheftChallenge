@@ -37,7 +37,18 @@ namespace GrandTheftChallenge.Character
         [RemoteEvent("RegisterAccount")]
         public async void RegisterAccountEvent(Client player, string username, string email, string password)
         {
-            NAPI.Console.WriteLine("Registro");
+            // Try to register the account
+            int registeredAccount = await DatabaseHandler.RegisterAccount(username, email, password, player.SocialClubName);
+
+            if(registeredAccount == 0)
+            {
+                // The account is already registered
+                player.TriggerEvent("WarnRegisteredAccount");
+                return;
+            }
+
+            // Log the player into the server
+            player.TriggerEvent("DestroyConnectionBrowser");
         }
 
         private void InitializeCharacterData() { }

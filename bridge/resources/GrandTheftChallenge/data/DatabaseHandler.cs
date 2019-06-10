@@ -3,6 +3,7 @@ using GTANetworkAPI;
 using MySql.Data.MySqlClient;
 using System.Data.Common;
 using System.Threading.Tasks;
+using System;
 
 namespace GrandTheftChallenge.Data
 {
@@ -84,6 +85,36 @@ namespace GrandTheftChallenge.Data
             }
 
             return reason;
+        }
+
+        public static async Task<int> RegisterAccount(string username, string email, string password, string social)
+        {
+            int registeredAccount = 0;
+
+            using (MySqlConnection connection = new MySqlConnection(connectionHandle))
+            {
+                await connection.OpenAsync().ConfigureAwait(false);
+
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "INSERT INTO `accounts` (`username`, `email`, `password`, `socialName`) VALUES (@username, @email, SHA2(@password, '256'), @social)";
+                command.Parameters.AddWithValue("@username", username);
+                command.Parameters.AddWithValue("@email", email);
+                command.Parameters.AddWithValue("@password", password);
+                command.Parameters.AddWithValue("@social", social);
+
+                try
+                {
+                    await command.ExecuteNonQueryAsync().ConfigureAwait(false);
+                    registeredAccount = (int)command.LastInsertedId;
+                }
+                catch (Exception ex)
+                {
+                    NAPI.Util.ConsoleOutput("[EXCEPTION RegisterAccount] " + ex.Message);
+                    NAPI.Util.ConsoleOutput("[EXCEPTION RegisterAccount] " + ex.StackTrace);
+                }
+            }
+
+            return registeredAccount;
         }
     }
 }
