@@ -2,6 +2,7 @@
 using GrandTheftChallenge.Data.Model;
 using GrandTheftChallenge.Utility;
 using GTANetworkAPI;
+using System;
 
 namespace GrandTheftChallenge.Character
 {
@@ -65,11 +66,10 @@ namespace GrandTheftChallenge.Character
         }
 
         [RemoteEvent("SkinSelection")]
-        public void SkinSelection(Client player, string skin)
+        public void SkinSelection(Client player, int skin)
         {
             // Get the hash of the skin and set to the player
-            uint hash = NAPI.Util.GetHashKey(skin);
-            player.SetSkin(hash);
+            player.SetSkin((PedHash)skin);
 
             // Destroy current CEF Browser
             player.TriggerEvent("DestroyConnectionBrowser");
@@ -79,7 +79,7 @@ namespace GrandTheftChallenge.Character
         }
 
         [RemoteEvent("GameSelection")]
-        public void SkinSelection(Client player, int game)
+        public void GameSelection(Client player, int game)
         {
             //Destroy current CEF Browser, camera and return radar
             player.TriggerEvent("DestroyConnectionBrowser");

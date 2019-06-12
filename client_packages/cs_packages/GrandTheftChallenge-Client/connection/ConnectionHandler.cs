@@ -49,7 +49,7 @@ namespace GrandTheftChallenge_Client.Connection
         private void SkinSelectionUserEvent(object[] args)
         {
             // Define the param from the CEF
-            string skin = (string)args[0];
+            int skin = (int)args[0];
 
             // Call the server to set the skin
             Events.CallRemote("SkinSelection", skin);
@@ -58,8 +58,7 @@ namespace GrandTheftChallenge_Client.Connection
         private void DestroyCamEvent(object[] args)
         {
             // Destroy cam and radar
-            RAGE.Game.Cam.SetCamActive(cam, false);
-            RAGE.Game.Cam.DestroyCam(cam, true);
+            RAGE.Game.Cam.RenderScriptCams(false, false, 0, true, false, 0);
             RAGE.Game.Ui.DisplayRadar(true);
         }
 
