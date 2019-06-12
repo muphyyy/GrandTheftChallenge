@@ -23,8 +23,8 @@ namespace GrandTheftChallenge.Character
             }
             else
             {
-                // Check the account
-                CheckAccountState(player, account);
+                // Show the login screen
+                player.TriggerEvent("ShowLoginWindow");
             }
         }
 
@@ -40,6 +40,11 @@ namespace GrandTheftChallenge.Character
                 player.TriggerEvent("WarnLoginFailed");
                 return;
             }
+            // Load the account from the player's Social Name
+            AccountModel account = await DatabaseHandler.GetPlayerAccount(player.SocialClubName).ConfigureAwait(false);
+
+            // Check the status of the account
+            CheckAccountState(player, account);
         }
 
         [RemoteEvent("RegisterAccount")]
@@ -74,8 +79,11 @@ namespace GrandTheftChallenge.Character
                     break;
 
                 case Constants.ACCOUNT_STATE_PLAYABLE:
+                    // Log the player into the server
+                    player.TriggerEvent("DestroyConnectionBrowser");
+
                     // Show the main menu to the player
-                    player.TriggerEvent("ShowMainMenu");
+                    //player.TriggerEvent("ShowMainMenu");
                     break;
             }
         }
