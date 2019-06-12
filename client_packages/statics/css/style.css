@@ -1,10 +1,7 @@
-html {
-    background-color: #56baed;
-  }
-  
   body {
     font-family: "Poppins", sans-serif;
     height: 100vh;
+    background-color: rgba(128, 128, 128, 0.5);
   }
   
   a {

@@ -2,31 +2,73 @@
 using RAGE.Ui;
 using RAGE.Elements;
 using GrandTheftChallenge_Client.Browser;
+using System;
 
 namespace GrandTheftChallenge_Client.Connection
 {
     public class ConnectionHandler : Events.Script
     {
         private static HtmlWindow browser = null;
-
+        private static int cam;
         public ConnectionHandler()
         {
             // Server to client events
             Events.Add("ShowRegisterWindow", ShowRegisterWindowEvent);
+            Events.Add("ShowLoginWindow", ShowLoginWindowEvent);
             Events.Add("ShowPlayerBan", ShowPlayerBanEvent);
-            Events.Add("ShowMainMenu", ShowMainMenuEvent);
+            Events.Add("ShowSkinSelector", ShowSkinSelectorEvent);
             Events.Add("DestroyConnectionBrowser", DestroyConnectionBrowserEvent);
+            Events.Add("DestroyCam", DestroyCamEvent);
 
             // Client to server events
             Events.Add("RegisterServer", RegisterServerEvent);
             Events.Add("LoginServer", LoginServerEvent);
+            Events.Add("SkinSelectionUser", SkinSelectionUserEvent);
 
             // Register RAGE's events
             Events.OnGuiReady += OnGuiReadyEvent;
         }
 
+        private void SkinSelectionUserEvent(object[] args)
+        {
+            // Define the param from the CEF
+            string skin = (string)args[0];
+
+            // Call the server to set the skin
+            Events.CallRemote("SkinSelection", skin);
+        }
+
+        private void DestroyCamEvent(object[] args)
+        {
+            RAGE.Game.Cam.SetCamActive(cam, false);
+            RAGE.Game.Cam.DestroyCam(cam, true);
+            RAGE.Game.Ui.DisplayRadar(true);
+        }
+
+        private void ShowLoginWindowEvent(object[] args)
+        {
+            // Create the camera
+            cam = RAGE.Game.Cam.CreateCameraWithParams(RAGE.Game.Misc.GetHashKey("DEFAULT_SCRIPTED_CAMERA"), 3400.0f, 5075.0f, 20.0f, 0.0f, 0.0f, 8.0f, 75.0f, true, 2);
+            RAGE.Game.Cam.SetCamActive(cam, true);
+            RAGE.Game.Cam.RenderScriptCams(true, false, 0, false, false, 0);
+
+            //Disable the radar
+            RAGE.Game.Ui.DisplayRadar(false);
+
+            // Create the login browser
+            browser = BrowserHandler.CreateBrowser("package://statics/login.html", null);
+        }
+
         private void ShowRegisterWindowEvent(object[] args)
         {
+            // Create the camera
+            var cam = RAGE.Game.Cam.CreateCameraWithParams(RAGE.Game.Misc.GetHashKey("DEFAULT_SCRIPTED_CAMERA"), 3400.0f, 5075.0f, 20.0f, 0.0f, 0.0f, 8.0f, 75.0f, true, 2);
+            RAGE.Game.Cam.SetCamActive(cam, true);
+            RAGE.Game.Cam.RenderScriptCams(true, false, 0, false, false, 0);
+
+            //Disable the radar
+            RAGE.Game.Ui.DisplayRadar(false);
+
             // Create the register browser
             browser = BrowserHandler.CreateBrowser("package://statics/register.html", null);
         }
@@ -37,10 +79,10 @@ namespace GrandTheftChallenge_Client.Connection
             browser = BrowserHandler.CreateBrowser("package://statics/ban.html", null);
         }
 
-        private void ShowMainMenuEvent(object[] args)
+        private void ShowSkinSelectorEvent(object[] args)
         {
             // Create the menu browser
-            browser = BrowserHandler.CreateBrowser("package://statics/menu.html", null);
+            browser = BrowserHandler.CreateBrowser("package://statics/skinselector.html", null);
         }
 
         private void DestroyConnectionBrowserEvent(object[] args)

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>SKIN SELECTOR</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/selector.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<section class="our-webcoderskull padding-lg">
+  <div class="container">
+    <div class="row heading heading-icon">
+        <h4>¡Selecciona una skin para continuar!</h4><br>
+    </div>
+    <ul class="row">
+      <li class="col-12 col-md-6 col-lg-3">
+          <div class="cnt-block equal-hight" style="height: 349px;">
+            <figure><img src="https://i.gyazo.com/e64cb01e6fee731040a138f131c689c9.png" class="img-responsive" alt=""></figure>
+            <h3><a href="#">Ashley </a></h3>
+            <ul class="follow-us clearfix">
+              <li><button class="btn btn-success" id="Ashley">Escoger</button></li>
+            </ul>
+          </div>
+      </li>
+      <li class="col-12 col-md-6 col-lg-3">
+          <div class="cnt-block equal-hight" style="height: 349px;">
+            <figure><img src="https://i.gyazo.com/61ba6108ebd6f80d58a631b7341717e1.png" class="img-responsive" alt=""></figure>
+            <h3><a href="#">Rodolfo </a></h3>
+            <ul class="follow-us clearfix">
+              <li><button class="btn btn-success" id="Rodolfo">Escoger</button></li>
+            </ul>
+          </div>
+      </li>
+      <li class="col-12 col-md-6 col-lg-3">
+          <div class="cnt-block equal-hight" style="height: 349px;">
+            <figure><img src="https://i.gyazo.com/94e32483742be973430475120e48b73c.png" class="img-responsive" alt=""></figure>
+            <h3><a href="#">Benny </a></h3>
+            <ul class="follow-us clearfix">
+              <li><button class="btn btn-success" id="Benny">Escoger</button></li>
+            </ul>
+          </div>
+       </li>
+      <li class="col-12 col-md-6 col-lg-3">
+          <div class="cnt-block equal-hight" style="height: 349px;">
+            <figure><img src="https://i.gyazo.com/0d0b9aa457568fb3f1648741cbe2fc5b.png" class="img-responsive" alt=""></figure>
+            <h3><a href="#">Beberly </a></h3>
+            <ul class="follow-us clearfix">
+              <li><button class="btn btn-success" id="Beberly">Escoger</button></li>
+            </ul>
+          </div>
+      </li>
+      <li class="col-12 col-md-6 col-lg-3">
+        <div class="cnt-block equal-hight" style="height: 349px;">
+          <figure><img src="https://i.gyazo.com/7b16f07e449d7292bba8063dceaf1158.png" class="img-responsive" alt=""></figure>
+          <h3><a href="#">Denise </a></h3>
+          <ul class="follow-us clearfix">
+            <li><button class="btn btn-success" id="Denise">Escoger</button></li>
+          </ul>
+        </div>
+    </li>
+    <li class="col-12 col-md-6 col-lg-3">
+      <div class="cnt-block equal-hight" style="height: 349px;">
+        <figure><img src="https://i.gyazo.com/c371f05839fd77b9fe2220202ab22ae5.png" class="img-responsive" alt=""></figure>
+        <h3><a href="#">Devin </a></h3>
+        <ul class="follow-us clearfix">
+          <li><button class="btn btn-success" id="Devin">Escoger</button></li>
+        </ul>
+      </div>
+  </li>
+  <li class="col-12 col-md-6 col-lg-3">
+    <div class="cnt-block equal-hight" style="height: 349px;">
+      <figure><img src="https://i.gyazo.com/d8b17f8cb68b0c4d94039b81d9357835.png" class="img-responsive" alt=""></figure>
+      <h3><a href="#">Dale </a></h3>
+      <ul class="follow-us clearfix">
+        <li><button class="btn btn-success" id="Dale">Escoger</button></li>
+      </ul>
+    </div>
+</li>
+<li class="col-12 col-md-6 col-lg-3">
+  <div class="cnt-block equal-hight" style="height: 349px;">
+    <figure><img src="https://i.gyazo.com/c9144043e29ac36be1cb4e9b747af64d.png" class="img-responsive" alt=""></figure>
+    <h3><a href="#">Chip </a></h3>
+    <ul class="follow-us clearfix">
+      <li><button class="btn btn-success" id="Chip">Escoger</button></li>
+    </ul>
+  </div>
+</li>
+    </ul>
+  </div>
+</section>
+<script>
+  $('#Ashley').click(() => {
+  mp.trigger('SkinSelectionUser', "Ashley");
+  });
+
+  $('#Rodolfo').click(() => {
+  mp.trigger('SkinSelectionUser', "BallasOG");
+  });
+
+  $('#Benny').click(() => {
+  mp.trigger('SkinSelectionUser', "Benny");
+  });
+
+  $('#Beverly').click(() => {
+  mp.trigger('SkinSelectionUser', "Beverly");
+  });
+
+  $('#Denise').click(() => {
+  mp.trigger('SkinSelectionUser', "Denise");
+  });
+
+  $('#Devin').click(() => {
+  mp.trigger('SkinSelectionUser', "Devin");
+  });
+
+  $('#Dale').click(() => {
+  mp.trigger('SkinSelectionUser', "Dale");
+  });
+
+  $('#Chip').click(() => {
+  mp.trigger('SkinSelectionUser', "Chip");
+  });
+  </script>
+</body>
+</html>

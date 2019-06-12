@@ -64,6 +64,20 @@ namespace GrandTheftChallenge.Character
             player.TriggerEvent("DestroyConnectionBrowser");
         }
 
+        [RemoteEvent("SkinSelection")]
+        public void SkinSelection(Client player, string skin)
+        {
+            // Get the hash of the skin and set to the player
+            uint hash = NAPI.Util.GetHashKey(skin);
+            player.SetSkin(hash);
+
+            //Destroy current CEF Browser, camera and return radar
+            player.TriggerEvent("DestroyConnectionBrowser");
+            player.TriggerEvent("DestroyCam");
+
+
+        }
+
         private void InitializeCharacterData() { }
 
         private async void CheckAccountState(Client player, AccountModel account)
@@ -79,11 +93,11 @@ namespace GrandTheftChallenge.Character
                     break;
 
                 case Constants.ACCOUNT_STATE_PLAYABLE:
-                    // Log the player into the server
+                    //Destroy current CEF Browser
                     player.TriggerEvent("DestroyConnectionBrowser");
 
                     // Show the main menu to the player
-                    //player.TriggerEvent("ShowMainMenu");
+                    player.TriggerEvent("ShowSkinSelector");
                     break;
             }
         }
