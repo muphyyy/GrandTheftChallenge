@@ -116,5 +116,13 @@ ul{
     margin: 0 auto; 
     float: none;
     margin-bottom: 10px; 
-    width: 700px;
+    width: 400px;
+}
+
+.cvh-alert{
+    margin-top: 30px;
+    margin: 0 auto; 
+    float: none;
+    margin-bottom: 10px; 
+    width: 400px;
 }

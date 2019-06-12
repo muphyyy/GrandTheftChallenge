@@ -18,6 +18,7 @@ namespace GrandTheftChallenge_Client.Connection
             Events.Add("ShowPlayerBan", ShowPlayerBanEvent);
             Events.Add("ShowSkinSelector", ShowSkinSelectorEvent);
             Events.Add("ShowMenuWindow", ShowMenuWindowEvent);
+            Events.Add("ShowCVHWindow", ShowCVHWindowEvent);
             Events.Add("DestroyConnectionBrowser", DestroyConnectionBrowserEvent);
             Events.Add("DestroyCam", DestroyCamEvent);
 
@@ -26,9 +27,39 @@ namespace GrandTheftChallenge_Client.Connection
             Events.Add("LoginServer", LoginServerEvent);
             Events.Add("SkinSelectionUser", SkinSelectionUserEvent);
             Events.Add("GameSelectionUser", GameSelectionUserEvent);
+            Events.Add("CVHSelectionTeam", CVHSelectionTeamEvent);
 
             // Register RAGE's events
             Events.OnGuiReady += OnGuiReadyEvent;
+        }
+
+        private void ShowCVHWindowEvent(object[] args)
+        {
+            // Create the camera
+            cam = RAGE.Game.Cam.CreateCameraWithParams(RAGE.Game.Misc.GetHashKey("DEFAULT_SCRIPTED_CAMERA"), 3400.0f, 5075.0f, 20.0f, 0.0f, 0.0f, 8.0f, 75.0f, true, 2);
+            RAGE.Game.Cam.SetCamActive(cam, true);
+            RAGE.Game.Cam.RenderScriptCams(true, false, 0, false, false, 0);
+
+            // Disable chat
+            Chat.Show(false);
+
+            //Disable the radar
+            RAGE.Game.Ui.DisplayRadar(false);
+
+            // Create the menu browser
+            browser = BrowserHandler.CreateBrowser("package://statics/cvh.html", null);
+        }
+
+        private void CVHSelectionTeamEvent(object[] args)
+        {
+            // Define the param from the CEF
+            int team = (int)args[0];
+
+            // Call the server to choose a team
+            Events.CallRemote("CHVSelection", team);
+
+            // Enable chat
+            Chat.Show(true);
         }
 
         private void GameSelectionUserEvent(object[] args)

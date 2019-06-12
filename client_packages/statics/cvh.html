@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>BAN</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/selector.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container" style="margin-top: 150px;">
+    <center><h2><b>¡Selecciona tu equipo!</b></h2></center><br><br>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card cvh-alert">
+          <div class="card-body">
+            <center>
+                <img class="rounded-circle img-responsive img-fluid" height="100" src="https://i.gyazo.com/86a3b118ccd5917ff3dff572cdf9afcb.png" data-holder-rendered="true"><br><br>
+                <button class="btn btn-info btn-block" id="coches">Coches</button>
+            </center>
+         </div>
+      </div>
+    </div>
+      <div class="col-md-6">
+        <div class="card cvh-alert">
+          <div class="card-body">
+            <center>
+                <img class="rounded-circle img-responsive img-fluid" height="100" src="https://i.gyazo.com/2d2c4b46383043f1ed12f6547ba531af.png" data-holder-rendered="true"><br><br>
+                <button class="btn btn-warning btn-block" id="humanos">Humanos</button>
+            </center>
+         </div>
+      </div>
+    </div>
+    </div>
+</div>
+<script>
+    $('#coches').click(() => {
+    mp.trigger('CVHSelectionTeam', 1);
+    });
+  
+    $('#humanos').click(() => {
+    mp.trigger('CVHSelectionTeam', 2);
+    });
+    </script>
+</body>
+</html>
