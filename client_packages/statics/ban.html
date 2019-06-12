@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>BAN</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/selector.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <script>
+   function sendBanReason(reason) {
+    document.getElementById("reason").innerHTML = reason;
+   }
+  </script>
+<div class="container" style="margin-top: 200px;">
+    <div class="card ban-alert">
+       <div class="card-body">
+         <center>
+             <img src="https://upload.wikimedia.org/wikipedia/commons/1/14/Ban_sign.png" height="100px;" /><br><br>
+             <h4>Estás baneado de <b>Grand Theft Challenge</b> permanentemente.</h4>
+             <h5 id="reason"></h5><br>
+             <small>Si piensas que la sanción ha sido injusta, dirígete al foro y rellena tu solicitud de desbaneo. Un administrador la revisará tan pronto como sea posible. Grand Theft Challenge se reserva el derecho a banear sin dar explicación alguna. ¡La próxima vez piensatelo dos veces!</small>
+         </center>
+      </div>
+    </div>
+</div>
+</body>
+</html>

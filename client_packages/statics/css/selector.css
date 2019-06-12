@@ -110,3 +110,11 @@ ul{
 .our-webcoderskull .cnt-block .follow-us li .fa:hover{ 
    color:#025a8e;
 }
+
+.ban-alert{
+    margin-top: 30px;
+    margin: 0 auto; 
+    float: none;
+    margin-bottom: 10px; 
+    width: 700px;
+}

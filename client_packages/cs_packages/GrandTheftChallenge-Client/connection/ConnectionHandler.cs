@@ -84,7 +84,7 @@ namespace GrandTheftChallenge_Client.Connection
             RAGE.Game.Cam.SetCamActive(cam, true);
             RAGE.Game.Cam.RenderScriptCams(true, false, 0, false, false, 0);
 
-            //Disable the radar
+            // Disable the radar
             RAGE.Game.Ui.DisplayRadar(false);
 
             // Create the register browser
@@ -93,8 +93,15 @@ namespace GrandTheftChallenge_Client.Connection
 
         private void ShowPlayerBanEvent(object[] args)
         {
+            // Define the data from server-side
+            string reason = (string)args[0];
+
             // Create the player ban browser
             browser = BrowserHandler.CreateBrowser("package://statics/ban.html", null);
+
+            // Send ban reason to the browser
+            string reasoon = "<b>Razón:</b> " + reason;
+            browser.ExecuteJs("sendBanReason('" + reasoon + "')");
         }
 
         private void ShowSkinSelectorEvent(object[] args)
