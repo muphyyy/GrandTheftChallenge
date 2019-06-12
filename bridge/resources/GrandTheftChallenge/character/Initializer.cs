@@ -71,11 +71,26 @@ namespace GrandTheftChallenge.Character
             uint hash = NAPI.Util.GetHashKey(skin);
             player.SetSkin(hash);
 
+            // Destroy current CEF Browser
+            player.TriggerEvent("DestroyConnectionBrowser");
+
+            // Send to the game selection
+            player.TriggerEvent("ShowMenuWindow");
+        }
+
+        [RemoteEvent("GameSelection")]
+        public void SkinSelection(Client player, int game)
+        {
             //Destroy current CEF Browser, camera and return radar
             player.TriggerEvent("DestroyConnectionBrowser");
             player.TriggerEvent("DestroyCam");
 
-
+            switch (game)
+            {
+                case 0:
+                    player.SendChatMessage("lol");
+                    break;
+            }
         }
 
         private void InitializeCharacterData() { }

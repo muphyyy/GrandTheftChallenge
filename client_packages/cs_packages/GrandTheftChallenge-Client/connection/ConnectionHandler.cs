@@ -17,6 +17,7 @@ namespace GrandTheftChallenge_Client.Connection
             Events.Add("ShowLoginWindow", ShowLoginWindowEvent);
             Events.Add("ShowPlayerBan", ShowPlayerBanEvent);
             Events.Add("ShowSkinSelector", ShowSkinSelectorEvent);
+            Events.Add("ShowMenuWindow", ShowMenuWindowEvent);
             Events.Add("DestroyConnectionBrowser", DestroyConnectionBrowserEvent);
             Events.Add("DestroyCam", DestroyCamEvent);
 
@@ -24,9 +25,25 @@ namespace GrandTheftChallenge_Client.Connection
             Events.Add("RegisterServer", RegisterServerEvent);
             Events.Add("LoginServer", LoginServerEvent);
             Events.Add("SkinSelectionUser", SkinSelectionUserEvent);
+            Events.Add("GameSelectionUser", GameSelectionUserEvent);
 
             // Register RAGE's events
             Events.OnGuiReady += OnGuiReadyEvent;
+        }
+
+        private void GameSelectionUserEvent(object[] args)
+        {
+            // Define the param from the CEF
+            int game = (int)args[0];
+
+            // Call the server to start a game
+            Events.CallRemote("GameSelection", game);
+        }
+
+        private void ShowMenuWindowEvent(object[] args)
+        {
+            // Create the menu browser
+            browser = BrowserHandler.CreateBrowser("package://statics/gameselector.html", null);
         }
 
         private void SkinSelectionUserEvent(object[] args)
@@ -40,6 +57,7 @@ namespace GrandTheftChallenge_Client.Connection
 
         private void DestroyCamEvent(object[] args)
         {
+            // Destroy cam and radar
             RAGE.Game.Cam.SetCamActive(cam, false);
             RAGE.Game.Cam.DestroyCam(cam, true);
             RAGE.Game.Ui.DisplayRadar(true);

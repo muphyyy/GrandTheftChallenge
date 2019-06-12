@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>GAME SELECTOR</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/selector.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<section class="our-webcoderskull padding-lg">
+  <div class="container">
+    <div class="row heading heading-icon">
+        <h4>¡Selecciona un minijuego para empezar a jugar!</h4><br>
+    </div>
+    <ul class="row">
+      <li class="col-12 col-md-6 col-lg-3">
+        <div class="cnt-block equal-hight" style="height: 349px;">
+          <figure><img src="https://i.gyazo.com/9daba1af6a2896e71f48153e520c73d8.png" class="img-responsive" alt=""></figure>
+          <h3><a href="#">Derby </a></h3>
+          <p>¡Intenta quedar el último con vida!</p>
+          <ul class="follow-us clearfix">
+            <li><button class="btn btn-success" id="Derby">Jugar</button></li>
+          </ul>
+        </div>
+     </li>
+    </ul>
+  </div>
+</section>
+<script>
+  $('#Derby').click(() => {
+  mp.trigger('GameSelectionUser', 0);
+  });
+  </script>
+</body>
+</html>
