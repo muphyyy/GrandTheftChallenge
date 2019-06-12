@@ -60,6 +60,9 @@ namespace GrandTheftChallenge_Client.Connection
             // Destroy cam and radar
             RAGE.Game.Cam.RenderScriptCams(false, false, 0, true, false, 0);
             RAGE.Game.Ui.DisplayRadar(true);
+
+            // Active chat
+            Chat.Show(true);
         }
 
         private void ShowLoginWindowEvent(object[] args)

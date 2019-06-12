@@ -85,10 +85,17 @@ namespace GrandTheftChallenge.Character
             player.TriggerEvent("DestroyConnectionBrowser");
             player.TriggerEvent("DestroyCam");
 
+            // Switch to the game choosed
+            // Derby = 1
             switch (game)
             {
-                case 0:
-                    player.SendChatMessage("lol");
+                case 1:
+                    // Iniciate Derby
+                    derby.Initializer.StartDerby(player);
+                    break;
+
+                case 2:
+                    cvh.Initializer.StartCVH(player);
                     break;
             }
         }
