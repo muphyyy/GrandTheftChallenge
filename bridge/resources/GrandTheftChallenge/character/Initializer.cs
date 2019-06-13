@@ -24,8 +24,8 @@ namespace GrandTheftChallenge.Character
             }
             else
             {
-                // Show the login screen
-                player.TriggerEvent("ShowLoginWindow");
+                // Check if the player can log into the game
+                CheckAccountState(player, account);
             }
         }
 
@@ -41,11 +41,9 @@ namespace GrandTheftChallenge.Character
                 player.TriggerEvent("WarnLoginFailed");
                 return;
             }
-            // Load the account from the player's Social Name
-            AccountModel account = await DatabaseHandler.GetPlayerAccount(player.SocialClubName).ConfigureAwait(false);
 
-            // Check the status of the account
-            CheckAccountState(player, account);
+            // Show the main menu to the player
+            player.TriggerEvent("ShowSkinSelector");
         }
 
         [RemoteEvent("RegisterAccount")]
@@ -70,9 +68,6 @@ namespace GrandTheftChallenge.Character
         {
             // Get the hash of the skin and set to the player
             player.SetSkin((PedHash)skin);
-
-            // Destroy current CEF Browser
-            player.TriggerEvent("DestroyConnectionBrowser");
 
             // Send to the game selection
             player.TriggerEvent("ShowMenuWindow");
@@ -115,11 +110,8 @@ namespace GrandTheftChallenge.Character
                     break;
 
                 case Constants.ACCOUNT_STATE_PLAYABLE:
-                    //Destroy current CEF Browser
-                    player.TriggerEvent("DestroyConnectionBrowser");
-
-                    // Show the main menu to the player
-                    player.TriggerEvent("ShowSkinSelector");
+                    // Show the login screen
+                    player.TriggerEvent("ShowLoginWindow");
                     break;
             }
         }

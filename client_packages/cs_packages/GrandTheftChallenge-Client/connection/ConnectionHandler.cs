@@ -10,6 +10,7 @@ namespace GrandTheftChallenge_Client.Connection
     {
         private static HtmlWindow browser = null;
         private static int cam;
+
         public ConnectionHandler()
         {
             // Server to client events
@@ -53,7 +54,7 @@ namespace GrandTheftChallenge_Client.Connection
         private void CVHSelectionTeamEvent(object[] args)
         {
             // Define the param from the CEF
-            int team = (int)args[0];
+            int team = Convert.ToInt32(args[0]);
 
             // Call the server to choose a team
             Events.CallRemote("CHVSelection", team);
@@ -65,7 +66,7 @@ namespace GrandTheftChallenge_Client.Connection
         private void GameSelectionUserEvent(object[] args)
         {
             // Define the param from the CEF
-            int game = (int)args[0];
+            int game = Convert.ToInt32(args[0]);
 
             // Call the server to start a game
             Events.CallRemote("GameSelection", game);
@@ -73,6 +74,9 @@ namespace GrandTheftChallenge_Client.Connection
 
         private void ShowMenuWindowEvent(object[] args)
         {
+            // Destroy the previous window
+            BrowserHandler.DestroyBrowser(browser);
+
             // Create the menu browser
             browser = BrowserHandler.CreateBrowser("package://statics/gameselector.html", null);
         }
@@ -80,7 +84,7 @@ namespace GrandTheftChallenge_Client.Connection
         private void SkinSelectionUserEvent(object[] args)
         {
             // Define the param from the CEF
-            int skin = (int)args[0];
+            int skin = Convert.ToInt32(args[0]);
 
             // Call the server to set the skin
             Events.CallRemote("SkinSelection", skin);
@@ -126,19 +130,15 @@ namespace GrandTheftChallenge_Client.Connection
 
         private void ShowPlayerBanEvent(object[] args)
         {
-            // Define the data from server-side
-            string reason = (string)args[0];
-
             // Create the player ban browser
-            browser = BrowserHandler.CreateBrowser("package://statics/ban.html", null);
-
-            // Send ban reason to the browser
-            string reasoon = "<b>Razón:</b> " + reason;
-            browser.ExecuteJs("sendBanReason('" + reasoon + "')");
+            browser = BrowserHandler.CreateBrowser("package://statics/ban.html", new object[] { "sendBanReason", args[0].ToString() });
         }
 
         private void ShowSkinSelectorEvent(object[] args)
         {
+            // Destroy the previous window
+            BrowserHandler.DestroyBrowser(browser);
+
             // Create the menu browser
             browser = BrowserHandler.CreateBrowser("package://statics/skinselector.html", null);
         }

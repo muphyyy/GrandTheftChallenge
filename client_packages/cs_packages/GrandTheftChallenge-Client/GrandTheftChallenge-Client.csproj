@@ -7,13 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="rage-sharp">
-      <HintPath>..\..\..\bridge\runtime\rage-sharp.dll</HintPath>
-    </Reference>
+    <Compile Remove="cvh\**" />
+    <EmbeddedResource Remove="cvh\**" />
+    <None Remove="cvh\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="cvh\" />
+    <Reference Include="rage-sharp">
+      <HintPath>..\..\..\..\dotnet\rage-sharp.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
