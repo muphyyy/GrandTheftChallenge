@@ -13,15 +13,21 @@ namespace GrandTheftChallenge.derby
             // Set the dimension of the game
             player.Dimension = 1;
 
+            // Show loading screen
+            player.TriggerEvent("ShowLoadingWindow");
+
             // Set the position where player starts
-            player.Position = new Vector3(1660.336, 234.5094, 408.6269);
+            Vector3 position = new Vector3(1660.336, 234.5094, 408.6269);
+            player.Position = position.Subtract(new Vector3(0, 0, -0.5));
 
             // Freeze player
             player.TriggerEvent("DerbyFreezePlayer", 1);
 
-            // Delay 10 seconds (just to make sure that the map loads correctly)
-            await Task.Delay(10000);
-            player.SendChatMessage("ya");
+            // Delay 6 seconds (just to make sure that the map loads correctly)
+            await Task.Delay(6000);
+
+            // Destroy the loading browser
+            player.TriggerEvent("DestroyConnectionBrowser");
 
             // Unfreeze player
             player.TriggerEvent("DerbyFreezePlayer", 0);

@@ -20,6 +20,7 @@ namespace GrandTheftChallenge_Client.Connection
             Events.Add("ShowSkinSelector", ShowSkinSelectorEvent);
             Events.Add("ShowMenuWindow", ShowMenuWindowEvent);
             Events.Add("ShowCVHWindow", ShowCVHWindowEvent);
+            Events.Add("ShowLoadingWindow", ShowLoadingWindowEvent);
             Events.Add("DestroyConnectionBrowser", DestroyConnectionBrowserEvent);
             Events.Add("DestroyCam", DestroyCamEvent);
 
@@ -32,6 +33,12 @@ namespace GrandTheftChallenge_Client.Connection
 
             // Register RAGE's events
             Events.OnGuiReady += OnGuiReadyEvent;
+        }
+
+        private void ShowLoadingWindowEvent(object[] args)
+        {
+            // Create the browser
+            browser = BrowserHandler.CreateBrowser("package://statics/loading.html", null);
         }
 
         private void ShowCVHWindowEvent(object[] args)
