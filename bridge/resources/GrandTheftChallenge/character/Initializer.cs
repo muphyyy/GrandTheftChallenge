@@ -42,9 +42,6 @@ namespace GrandTheftChallenge.Character
                 return;
             }
 
-            // Destroy previous browser
-            player.TriggerEvent("DestroyConnectionBrowser");
-
             // Show the main menu to the player
             player.TriggerEvent("ShowSkinSelector");
         }
