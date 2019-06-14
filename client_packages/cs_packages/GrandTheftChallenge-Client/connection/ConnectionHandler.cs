@@ -143,6 +143,9 @@ namespace GrandTheftChallenge_Client.Connection
 
         private void ShowSkinSelectorEvent(object[] args)
         {
+            // Destroy the previous broswer
+            DestroyConnectionBrowserEvent(null);
+        
             // Create the menu browser
             browser = BrowserHandler.CreateBrowser("package://statics/skinselector.html", null);
         }
