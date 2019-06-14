@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using GTANetworkAPI;
 
-namespace GrandTheftChallenge.cvh
+namespace GrandTheftChallenge.Games.CVH
 {
     public class Initializer : Script
     {
