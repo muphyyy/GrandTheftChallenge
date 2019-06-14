@@ -1,9 +1,8 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using GTANetworkAPI;
 
-namespace GrandTheftChallenge.derby
+namespace GrandTheftChallenge.Games.Derby
 {
     public class Maps : Script
     {
