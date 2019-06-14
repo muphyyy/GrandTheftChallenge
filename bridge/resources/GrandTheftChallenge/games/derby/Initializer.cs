@@ -1,10 +1,9 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using GTANetworkAPI;
 using System.Threading.Tasks;
 
-namespace GrandTheftChallenge.derby
+namespace GrandTheftChallenge.Games.Derby
 {
     public class Initializer : Script
     {
