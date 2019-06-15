@@ -9,7 +9,7 @@ namespace GrandTheftChallenge_Client.Connection
     public class ConnectionHandler : Events.Script
     {
         private static HtmlWindow browser = null;
-        private static int cam;
+        private static int camera;
 
         public ConnectionHandler()
         {
@@ -44,8 +44,8 @@ namespace GrandTheftChallenge_Client.Connection
         private void ShowCVHWindowEvent(object[] args)
         {
             // Create the camera
-            cam = RAGE.Game.Cam.CreateCameraWithParams(RAGE.Game.Misc.GetHashKey("DEFAULT_SCRIPTED_CAMERA"), 3400.0f, 5075.0f, 20.0f, 0.0f, 0.0f, 8.0f, 75.0f, true, 2);
-            RAGE.Game.Cam.SetCamActive(cam, true);
+            camera = RAGE.Game.Cam.CreateCameraWithParams(RAGE.Game.Misc.GetHashKey("DEFAULT_SCRIPTED_CAMERA"), 3400.0f, 5075.0f, 20.0f, 0.0f, 0.0f, 8.0f, 75.0f, true, 2);
+            RAGE.Game.Cam.SetCamActive(camera, true);
             RAGE.Game.Cam.RenderScriptCams(true, false, 0, false, false, 0);
 
             // Disable chat
@@ -109,28 +109,12 @@ namespace GrandTheftChallenge_Client.Connection
 
         private void ShowLoginWindowEvent(object[] args)
         {
-            // Create the camera
-            cam = RAGE.Game.Cam.CreateCameraWithParams(RAGE.Game.Misc.GetHashKey("DEFAULT_SCRIPTED_CAMERA"), 3400.0f, 5075.0f, 20.0f, 0.0f, 0.0f, 8.0f, 75.0f, true, 2);
-            RAGE.Game.Cam.SetCamActive(cam, true);
-            RAGE.Game.Cam.RenderScriptCams(true, false, 0, false, false, 0);
-
-            //Disable the radar
-            RAGE.Game.Ui.DisplayRadar(false);
-
             // Create the login browser
             browser = BrowserHandler.CreateBrowser("package://statics/login.html", null);
         }
 
         private void ShowRegisterWindowEvent(object[] args)
         {
-            // Create the camera
-            var cam = RAGE.Game.Cam.CreateCameraWithParams(RAGE.Game.Misc.GetHashKey("DEFAULT_SCRIPTED_CAMERA"), 3400.0f, 5075.0f, 20.0f, 0.0f, 0.0f, 8.0f, 75.0f, true, 2);
-            RAGE.Game.Cam.SetCamActive(cam, true);
-            RAGE.Game.Cam.RenderScriptCams(true, false, 0, false, false, 0);
-
-            // Disable the radar
-            RAGE.Game.Ui.DisplayRadar(false);
-
             // Create the register browser
             browser = BrowserHandler.CreateBrowser("package://statics/register.html", null);
         }
@@ -188,10 +172,16 @@ namespace GrandTheftChallenge_Client.Connection
             // Initialize the player's position
             Player.LocalPlayer.FreezePosition(true);
 
-            // Hide the chat and the HUD
+            // Create the camera
+            var cam = RAGE.Game.Cam.CreateCameraWithParams(RAGE.Game.Misc.GetHashKey("DEFAULT_SCRIPTED_CAMERA"), 3400.0f, 5075.0f, 20.0f, 0.0f, 0.0f, 8.0f, 75.0f, true, 2);
+            RAGE.Game.Cam.SetCamActive(cam, true);
+            RAGE.Game.Cam.RenderScriptCams(true, false, 0, false, false, 0);
+
+            // Hide the chat, HUD and radar
             Chat.Show(false);
             Chat.Activate(false);
             RAGE.Game.Ui.DisplayHud(false);
+            RAGE.Game.Ui.DisplayRadar(false);
         }
     }
 }

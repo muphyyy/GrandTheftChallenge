@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace GrandTheftChallenge.Data.Model
 {
     public class GameModel

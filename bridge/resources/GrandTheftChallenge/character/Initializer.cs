@@ -1,15 +1,16 @@
 ﻿using GrandTheftChallenge.Data;
 using GrandTheftChallenge.Data.Model;
+using GrandTheftChallenge.Games;
 using GrandTheftChallenge.Utility;
 using GTANetworkAPI;
-using System;
+using System.Collections.Generic;
 
 namespace GrandTheftChallenge.Character
 {
     public class Initializer : Script
     {
         [ServerEvent(Event.PlayerConnected)]
-        private async void PlayerConnectedAsyncEvent(Client player)
+        public async void PlayerConnectedAsyncEvent(Client player)
         {
             // Initialize the character data
             InitializeCharacterData();
@@ -80,17 +81,24 @@ namespace GrandTheftChallenge.Character
             player.TriggerEvent("DestroyConnectionBrowser");
             player.TriggerEvent("DestroyCam");
 
+            GamesHandler.lobbyList.Add(new LobbyModel()
+            {
+                Id = 0, Countdown = 0, Players = new List<Client>(), Track = 1
+            });
+
             // Switch to the game choosed
             // Derby = 1
             switch (game)
             {
                 case 1:
                     // Iniciate Derby
-                    derby.Initializer.StartDerby(player);
+                    Games.Derby.Initializer.StartDerby(player);
+                    GamesHandler.lobbyList[0].Players.Add(player);
+                    GamesHandler.StartCountdown(GamesHandler.lobbyList[0].Id);
                     break;
 
                 case 2:
-                    cvh.Initializer.StartCVH(player);
+                    Games.CVH.Initializer.StartCVH(player);
                     break;
             }
         }
