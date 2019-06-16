@@ -13,6 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\..\dotnet\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="rage-sharp">
       <HintPath>..\..\..\..\dotnet\rage-sharp.dll</HintPath>
     </Reference>
