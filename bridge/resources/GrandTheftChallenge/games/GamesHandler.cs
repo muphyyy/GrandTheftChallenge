@@ -35,19 +35,21 @@ namespace GrandTheftChallenge.Games
             int lobbyId = Convert.ToInt32(parameter);
             LobbyModel lobbyModel = lobbyList[lobbyId];
 
-            if(lobbyModel.Countdown != -1)
+            if(lobbyModel.Countdown != -2)
             {
+                // Check if it's the first launch
+                bool justJoined = lobbyModel.Countdown == Constants.COUNTDOWN_TIME;
+
                 // Show the counter for the players
-                lobbyModel.Players.ForEach(c => c.TriggerEvent("ShowCountdown", lobbyModel.Countdown));
+                lobbyModel.Players.ForEach(c => c.TriggerEvent("ShowCountdown", lobbyModel.Countdown, justJoined));
                 lobbyModel.Countdown--;
-            }
-            else
-            {
-                // Start the game
+
+                return;
             }
 
-            // Show the countdown for all the players
-
+            // Start the game
+            countdown.Dispose();
+            countdown = null;
         }
     }
 }
