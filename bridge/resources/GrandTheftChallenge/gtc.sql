@@ -30,13 +30,9 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `socialName` (`socialName`,`username`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='User accounts';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='User accounts';
 
--- Volcando datos para la tabla gtc.accounts: ~0 rows (aproximadamente)
-DELETE FROM `accounts`;
-/*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
-/*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
-
+-- La exportación de datos fue deseleccionada.
 -- Volcando estructura para tabla gtc.characters
 DROP TABLE IF EXISTS `characters`;
 CREATE TABLE IF NOT EXISTS `characters` (
@@ -51,11 +47,32 @@ CREATE TABLE IF NOT EXISTS `characters` (
   CONSTRAINT `Accounts_Characters` FOREIGN KEY (`account`) REFERENCES `accounts` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Characters bound to an account';
 
--- Volcando datos para la tabla gtc.characters: ~0 rows (aproximadamente)
-DELETE FROM `characters`;
-/*!40000 ALTER TABLE `characters` DISABLE KEYS */;
-/*!40000 ALTER TABLE `characters` ENABLE KEYS */;
+-- La exportación de datos fue deseleccionada.
+-- Volcando estructura para tabla gtc.games
+DROP TABLE IF EXISTS `games`;
+CREATE TABLE IF NOT EXISTS `games` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='List of the games from Grand Theft Challenge';
 
+-- La exportación de datos fue deseleccionada.
+-- Volcando estructura para tabla gtc.maps
+DROP TABLE IF EXISTS `maps`;
+CREATE TABLE IF NOT EXISTS `maps` (
+  `trackId` int(11) NOT NULL,
+  `object` int(11) NOT NULL,
+  `posX` float NOT NULL,
+  `posY` float NOT NULL,
+  `posZ` float NOT NULL,
+  `rotX` float NOT NULL,
+  `rotY` float NOT NULL,
+  `rotZ` float NOT NULL,
+  KEY `Tracks_Maps` (`trackId`),
+  CONSTRAINT `Tracks_Maps` FOREIGN KEY (`trackId`) REFERENCES `tracks` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='List of objects for each one of the tracks';
+
+-- La exportación de datos fue deseleccionada.
 -- Volcando estructura para tabla gtc.punishments
 DROP TABLE IF EXISTS `punishments`;
 CREATE TABLE IF NOT EXISTS `punishments` (
@@ -70,11 +87,34 @@ CREATE TABLE IF NOT EXISTS `punishments` (
   CONSTRAINT `Staff_Characters` FOREIGN KEY (`staff`) REFERENCES `characters` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Stores all the punishments from the admins';
 
--- Volcando datos para la tabla gtc.punishments: ~0 rows (aproximadamente)
-DELETE FROM `punishments`;
-/*!40000 ALTER TABLE `punishments` DISABLE KEYS */;
-/*!40000 ALTER TABLE `punishments` ENABLE KEYS */;
+-- La exportación de datos fue deseleccionada.
+-- Volcando estructura para tabla gtc.spawns
+DROP TABLE IF EXISTS `spawns`;
+CREATE TABLE IF NOT EXISTS `spawns` (
+  `trackId` int(11) DEFAULT NULL,
+  `posX` float NOT NULL,
+  `posY` float NOT NULL,
+  `posZ` float NOT NULL,
+  `rotX` float NOT NULL,
+  `rotY` float NOT NULL,
+  `rotZ` float NOT NULL,
+  KEY `Tracks_Spawns` (`trackId`),
+  CONSTRAINT `Tracks_Spawns` FOREIGN KEY (`trackId`) REFERENCES `tracks` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='List of the spawn points for the players on a track';
 
+-- La exportación de datos fue deseleccionada.
+-- Volcando estructura para tabla gtc.tracks
+DROP TABLE IF EXISTS `tracks`;
+CREATE TABLE IF NOT EXISTS `tracks` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `game` int(11) DEFAULT NULL,
+  `name` varchar(64) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `Games_Tracks` (`game`),
+  CONSTRAINT `Games_Tracks` FOREIGN KEY (`game`) REFERENCES `games` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='List of the tracks for each game type';
+
+-- La exportación de datos fue deseleccionada.
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

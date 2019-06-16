@@ -1,10 +1,10 @@
-﻿using GTANetworkAPI;
+﻿using RAGE;
 
-namespace GrandTheftChallenge.Data.Model
+namespace GrandTheftChallenge_Client.Data
 {
     public class MapModel
     {
-        public int ObjectModel { get; set; }
+        public uint ObjectModel { get; set; }
         public Vector3 Position { get; set; }
         public Vector3 Rotation { get; set; }
     }

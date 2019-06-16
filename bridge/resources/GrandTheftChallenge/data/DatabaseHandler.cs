@@ -4,6 +4,7 @@ using MySql.Data.MySqlClient;
 using System.Data.Common;
 using System.Threading.Tasks;
 using System;
+using System.Collections.Generic;
 
 namespace GrandTheftChallenge.Data
 {
@@ -131,6 +132,85 @@ namespace GrandTheftChallenge.Data
                 DbDataReader reader = await command.ExecuteReaderAsync().ConfigureAwait(false);
                 return reader.HasRows;
             }
+        }
+
+        public static async Task<List<MapModel>> LoadTrackMap(int trackId)
+        {
+            List<MapModel> map = new List<MapModel>();
+
+            using (MySqlConnection connection = new MySqlConnection(connectionHandle))
+            {
+                await connection.OpenAsync().ConfigureAwait(false);
+
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT `object`, `posX`, `posY`, `posZ`, `rotX`, `rotY`, `rotZ` FROM `maps` WHERE `trackId` = @trackId";
+                command.Parameters.AddWithValue("@trackId", trackId);
+
+                DbDataReader reader = await command.ExecuteReaderAsync().ConfigureAwait(false);
+
+                while(reader.HasRows)
+                {
+                    // Get the position and rotation
+                    float positionX = reader.GetFloat(reader.GetOrdinal("posX"));
+                    float positionY = reader.GetFloat(reader.GetOrdinal("posY"));
+                    float positionZ = reader.GetFloat(reader.GetOrdinal("posZ"));
+
+                    float rotationX = reader.GetFloat(reader.GetOrdinal("rotX"));
+                    float rotationY = reader.GetFloat(reader.GetOrdinal("rotY"));
+                    float rotationZ = reader.GetFloat(reader.GetOrdinal("rotZ"));
+
+
+                    MapModel mapElement = new MapModel()
+                    {
+                        ObjectModel = reader.GetInt32(reader.GetOrdinal("object")),
+                        Position = new Vector3(positionX, positionY, positionZ),
+                        Rotation = new Vector3(rotationX, rotationY, rotationZ)
+                    };
+
+                    map.Add(mapElement);
+                }
+            }
+
+            return map;
+        }
+
+        public static async Task<List<SpawnPointModel>> LoadTrackSpawns(int trackId)
+        {
+            List<SpawnPointModel> spawns = new List<SpawnPointModel>();
+
+            using (MySqlConnection connection = new MySqlConnection(connectionHandle))
+            {
+                await connection.OpenAsync().ConfigureAwait(false);
+
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT `posX`, `posY`, `posZ`, `rotX`, `rotY`, `rotZ` FROM `spawns` WHERE `trackId` = @trackId";
+                command.Parameters.AddWithValue("@trackId", trackId);
+
+                DbDataReader reader = await command.ExecuteReaderAsync().ConfigureAwait(false);
+
+                while (reader.HasRows)
+                {
+                    // Get the position and rotation
+                    float positionX = reader.GetFloat(reader.GetOrdinal("posX"));
+                    float positionY = reader.GetFloat(reader.GetOrdinal("posY"));
+                    float positionZ = reader.GetFloat(reader.GetOrdinal("posZ"));
+
+                    float rotationX = reader.GetFloat(reader.GetOrdinal("rotX"));
+                    float rotationY = reader.GetFloat(reader.GetOrdinal("rotY"));
+                    float rotationZ = reader.GetFloat(reader.GetOrdinal("rotZ"));
+
+
+                    SpawnPointModel spawnPoint = new SpawnPointModel()
+                    {
+                        Position = new Vector3(positionX, positionY, positionZ),
+                        Rotation = new Vector3(rotationX, rotationY, rotationZ)
+                    };
+
+                    spawns.Add(spawnPoint);
+                }
+            }
+
+            return spawns;
         }
     }
 }

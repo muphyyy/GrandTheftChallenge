@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using GrandTheftChallenge_Client.Data;
+using Newtonsoft.Json;
 using RAGE;
 using RAGE.Elements;
 
@@ -9,9 +11,11 @@ namespace GrandTheftChallenge_Client.Games
     {
         private int countdownSeconds = 0;
         private int countdownScaleform = -1;
+        private static List<int> mapObjects = null;
 
         public GamesHandler()
         {
+            Events.Add("LoadTrack", LoadTrackEvent);
             Events.Add("ShowCountdown", ShowCountdownEvent);
 
             // Add default RAGE's events
@@ -19,6 +23,30 @@ namespace GrandTheftChallenge_Client.Games
 
             // Get the scaleform for the countdown
             countdownScaleform = RAGE.Game.Graphics.RequestScaleformMovie("countdown");
+
+            // Initialize the list with the map
+            mapObjects = new List<int>();
+        }
+
+        private void LoadTrackEvent(object[] args)
+        {
+            // Get the lobby identifier
+            uint lobbyId = Convert.ToUInt32(args[0]);
+
+            // Get the track objects
+            List<MapModel> map = JsonConvert.DeserializeObject<List<MapModel>>(args[1].ToString());
+
+            foreach(MapModel mapElement in map)
+            {
+                // Create the object
+                MapObject elementHandle = new MapObject(mapElement.ObjectModel, mapElement.Position, mapElement.Rotation, 255, lobbyId);
+
+                // Add the handle to the list
+                mapObjects.Add(elementHandle.Handle);
+            }
+
+            // Tell the server that the player has finished loading the map
+            Events.CallRemote("PlayerLoadedMap");
         }
 
         private void ShowCountdownEvent(object[] args)

@@ -1,5 +1,6 @@
 ﻿using GrandTheftChallenge.Data;
 using GrandTheftChallenge.Data.Model;
+using GrandTheftChallenge.games.Sumo;
 using GrandTheftChallenge.Games;
 using GrandTheftChallenge.Utility;
 using GTANetworkAPI;
@@ -81,12 +82,19 @@ namespace GrandTheftChallenge.Character
             player.TriggerEvent("DestroyConnectionBrowser");
             player.TriggerEvent("DestroyCam");
 
-            GamesHandler.lobbyList.Add(new LobbyModel()
+            // Create the lobby
+            LobbyModel lobby = new LobbyModel()
             {
-                Id = 0, Countdown = 0, Players = new List<Client>(), Track = 1
-            });
+                Id = 0,
+                Countdown = 0,
+                Players = new List<Client>(),
+                Track = 1
+            };
 
-            // Switch to the game choosed
+            // Add the lobby to the list
+            GamesHandler.lobbyList.Add(lobby);
+
+            // Switch to the game chosen
             // Derby = 1
             switch (game)
             {
@@ -99,6 +107,10 @@ namespace GrandTheftChallenge.Character
 
                 case 2:
                     Games.CVH.Initializer.StartCVH(player);
+                    break;
+
+                case 3:
+                    SumoStartupHandler.Initialize(lobby);
                     break;
             }
         }

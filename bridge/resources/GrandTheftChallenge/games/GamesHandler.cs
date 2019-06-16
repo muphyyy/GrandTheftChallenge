@@ -1,8 +1,10 @@
+using GrandTheftChallenge.Data;
 using GrandTheftChallenge.Data.Model;
 using GrandTheftChallenge.Utility;
 using GTANetworkAPI;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace GrandTheftChallenge.Games
@@ -11,12 +13,52 @@ namespace GrandTheftChallenge.Games
     {
         private static Timer countdown = null;
 
+        public static List<GameModel> gamesList;
         public static List<LobbyModel> lobbyList;
 
         public GamesHandler()
         {
-            // Initialize the lobbies
+            // Initialize the lobbies and games
+            gamesList = new List<GameModel>();
             lobbyList = new List<LobbyModel>();
+        }
+
+        public static async void LoadSpawnPoints(LobbyModel lobby)
+        {
+            // Load the items for the selected track
+            List<SpawnPointModel> spawnPoints = await DatabaseHandler.LoadTrackSpawns(lobby.Track).ConfigureAwait(false);
+
+            // Initialize the random seems
+            Random random = new Random();
+
+            foreach(Client player in lobby.Players)
+            {
+                // Get a random spawn point
+                SpawnPointModel spawn = spawnPoints[random.Next(spawnPoints.Count)];
+
+                // Set the player into the spawn
+                player.Position = spawn.Position;
+                player.Rotation = spawn.Rotation;
+                player.Dimension = (uint)lobby.Id;
+
+                // Remove the spawn point
+                spawnPoints.Remove(spawn);
+            }
+        }
+
+        public static async void LoadTrackForPlayers(LobbyModel lobby)
+        {
+            // Load the items for the selected track
+            List<MapModel> trackObjects = await DatabaseHandler.LoadTrackMap(lobby.Track).ConfigureAwait(false);
+
+            if(trackObjects.Count > 0)
+            {
+                // Get the JSON string of the objects
+                string trackObjectsJson = NAPI.Util.ToJson(trackObjects);
+
+                // Load the track for all the players
+                lobby.Players.ForEach(p => p.TriggerEvent("LoadTrack", lobby.Id, trackObjectsJson));
+            }
         }
 
         public static void StartCountdown(int lobby)
@@ -27,6 +69,21 @@ namespace GrandTheftChallenge.Games
 
             // Start the countdown timer
             countdown = new Timer(CountdownTimer, lobby, 0, 1000);
+        }
+
+        [RemoteEvent("PlayerLoadedMap")]
+        public void PlayerLoadedMapEvent(Client player)
+        {
+            // Get the lobby where the player is and add a player to the count
+            LobbyModel lobby = lobbyList.First(l => l.Players.Contains(player));
+            lobby.PlayersReady++;
+
+            if(lobby.PlayersReady == lobby.Players.Count)
+            {
+                // Start the game
+                lobby.PlayersReady = 0;
+                StartCountdown(lobby.Id);
+            }
         }
 
         private static void CountdownTimer(object parameter)
